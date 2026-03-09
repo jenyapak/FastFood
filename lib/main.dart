@@ -12,6 +12,9 @@ class FastFoodApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: _appRouter.config());
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: _appRouter.config(),
+    );
   }
 }
