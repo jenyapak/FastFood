@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:fast_food/core/config/router.gr.dart';
 import 'package:fast_food/core/constants/app_paddings.dart';
 import 'package:fast_food/core/extensions/int_extension.dart';
 import 'package:fast_food/core/extensions/textstyle_extension.dart';
@@ -18,23 +20,6 @@ class WelcomeThreeWidget extends StatelessWidget {
         padding: AppPaddings.medium.horizontal,
         child: Column(
           children: [
-            Align(
-              alignment: AlignmentGeometry.centerRight,
-              child: GestureDetector(
-                onTap: () {
-                  pageController.nextPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.linear,
-                  );
-                },
-                child: Text(
-                  'Skip >>'.toUpperCase(),
-                  style: AppTextStyle.large
-                      .setSize(18)
-                      .copyWith(color: AppColors.white),
-                ),
-              ),
-            ),
             AppPaddings.large.verticalSpace,
             Container(
               decoration: BoxDecoration(
@@ -49,7 +34,7 @@ class WelcomeThreeWidget extends StatelessWidget {
               textAlign: TextAlign.center,
 
               style: AppTextStyle.regular
-                  .setSize(50)
+                  .setSize(40)
                   .copyWith(
                     color: AppColors.white,
                     height: 0.9,
@@ -57,7 +42,7 @@ class WelcomeThreeWidget extends StatelessWidget {
                   ),
             ),
 
-            Flexible(
+            Expanded(
               child: Image.asset(AppImages.welcomeThree, fit: BoxFit.contain),
             ),
 
@@ -67,7 +52,9 @@ class WelcomeThreeWidget extends StatelessWidget {
                 width: 314,
                 height: 70,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.router.replaceAll([AuthRoute()]);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: const Color(0xffFF470B),
@@ -77,7 +64,7 @@ class WelcomeThreeWidget extends StatelessWidget {
                   ),
                   child: Text(
                     'Get started!',
-                    style: AppTextStyle.regular.setSize(17),
+                    style: AppTextStyle.large.setSize(17),
                   ),
                 ),
               ),

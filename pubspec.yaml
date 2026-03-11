@@ -19,6 +19,11 @@ dependencies:
   flutter_svg: ^2.2.3
   smooth_page_indicator: ^2.0.1
   google_fonts: ^8.0.2
+  supabase_flutter: ^2.12.0
+  injectable: ^2.7.1+4
+  injectable_generator: ^2.12.1
+  get_it: ^9.2.1
+  flutter_bloc: ^9.1.1
 
 dev_dependencies:
   flutter_test:
