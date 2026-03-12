@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:fast_food/core/constants/app_paddings.dart';
 import 'package:fast_food/core/extensions/int_extension.dart';
 import 'package:fast_food/core/extensions/textstyle_extension.dart';
