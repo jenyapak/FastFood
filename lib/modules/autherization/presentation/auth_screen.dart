@@ -84,7 +84,21 @@ class _AuthScreenState extends State<AuthScreen>
           Expanded(
             child: PageView(
               controller: _pageController,
-              children: [LoginWidget(), SignUpWidget()],
+              onPageChanged: (index) {
+                _tabController.animateTo(index);
+              },
+              children: [
+                LoginWidget(),
+                SignUpWidget(
+                  onLoginTap: () {
+                    _pageController.animateToPage(
+                      0,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ],

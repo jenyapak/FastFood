@@ -59,3 +59,5 @@ flutter_launcher_icons:
   image_path: "assets/icons/icon_one.png"
   adaptive_icon_background: "FFFFFF" 
   adaptive_icon_foreground: "assets/icons/icon_one.png" 
+
+  

@@ -1,6 +1,7 @@
 import 'package:fast_food/core/constants/app_paddings.dart';
 import 'package:fast_food/core/extensions/int_extension.dart';
 import 'package:fast_food/core/extensions/textstyle_extension.dart';
+import 'package:fast_food/core/resource/app_images.dart';
 import 'package:fast_food/core/theme/app_colors.dart';
 import 'package:fast_food/core/theme/app_text_style.dart';
 import 'package:fast_food/main.dart';
@@ -77,6 +78,58 @@ class _LoginWidgetState extends State<LoginWidget> {
                 style: AppTextStyle.medium
                     .setSize(17)
                     .copyWith(color: Color(0xffF6F6F9)),
+              ),
+            ),
+          ),
+          AppPaddings.medium.verticalSpace,
+          Center(child: Text('Or', style: AppTextStyle.medium.setSize(18))),
+          AppPaddings.medium.verticalSpace,
+          SizedBox(
+            height: 56,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xff1877F2),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(
+                    AppImages.facebookLogo,
+                    height: 24,
+                    fit: BoxFit.contain,
+                  ),
+                  Text(
+                    'Log In with Facebook',
+                    style: AppTextStyle.medium
+                        .setSize(17)
+                        .copyWith(color: Color(0xffF6F6F9)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          AppPaddings.medium.verticalSpace,
+          SizedBox(
+            height: 56,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(
+                    AppImages.googleLogo,
+                    height: 24,
+                    fit: BoxFit.contain,
+                  ),
+                  Text(
+                    'Log In with Google',
+                    style: AppTextStyle.medium
+                        .setSize(17)
+                        .copyWith(color: Color.fromARGB(255, 104, 103, 103)),
+                  ),
+                ],
               ),
             ),
           ),
