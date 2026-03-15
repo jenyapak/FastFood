@@ -1,5 +1,6 @@
 import 'package:fast_food/core/service/supabase_service.dart';
 import 'package:fast_food/modules/autherization/domain/repository/auth_domain_repository.dart';
+import 'package:fast_food/modules/autherization/domain/usecase/sign_up_usecase.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: AuthDomainRepository)
@@ -23,6 +24,21 @@ class AuthRepository implements AuthDomainRepository {
       } else {
         return true;
       }
+    } catch (e) {
+      throw Exception('Ошибка: $e');
+    }
+  }
+
+  @override
+  Future<bool> signUp(SignUpParams params) async {
+    try {
+      final response = await _supabaseService.client.from('users').insert([
+        params.toJson(),
+      ]);
+      if (response == null) {
+        return false;
+      }
+      return true;
     } catch (e) {
       throw Exception('Ошибка: $e');
     }

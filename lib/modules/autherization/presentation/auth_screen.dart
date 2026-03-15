@@ -62,18 +62,23 @@ class _AuthScreenState extends State<AuthScreen>
                   },
                   physics: const NeverScrollableScrollPhysics(),
                   dividerHeight: 0,
+                  labelColor: Colors.black,
                   indicatorColor: Color(0xffFA4A0C),
                   tabs: [
                     Tab(
                       child: Text(
                         'Login',
-                        style: AppTextStyle.medium.setSize(18),
+                        style: AppTextStyle.medium
+                            .setSize(18)
+                            .copyWith(color: Colors.black),
                       ),
                     ),
                     Tab(
                       child: Text(
                         'Sign-up',
-                        style: AppTextStyle.medium.setSize(18),
+                        style: AppTextStyle.medium
+                            .setSize(18)
+                            .copyWith(color: Colors.black),
                       ),
                     ),
                   ],
@@ -83,13 +88,14 @@ class _AuthScreenState extends State<AuthScreen>
           ),
           Expanded(
             child: PageView(
+              physics: NeverScrollableScrollPhysics(),
               controller: _pageController,
-              onPageChanged: (index) {
-                _tabController.animateTo(index);
-              },
+
               children: [
-                LoginWidget(),
+                LoginWidget(tabController: _tabController),
                 SignUpWidget(
+                  tabController: _tabController,
+                  pageController: _pageController,
                   onLoginTap: () {
                     _pageController.animateToPage(
                       0,

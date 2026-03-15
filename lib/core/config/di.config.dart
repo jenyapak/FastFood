@@ -18,6 +18,8 @@ import '../../modules/autherization/domain/repository/auth_domain_repository.dar
     as _i917;
 import '../../modules/autherization/domain/usecase/sign_in_usecase.dart'
     as _i602;
+import '../../modules/autherization/domain/usecase/sign_up_usecase.dart'
+    as _i106;
 import '../../modules/autherization/presentation/auth_cubit.dart' as _i809;
 import '../service/supabase_service.dart' as _i246;
 
@@ -35,8 +37,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i602.SignInUsecase>(
       () => _i602.SignInUsecase(repository: gh<_i917.AuthDomainRepository>()),
     );
+    gh.factory<_i106.SignUpUsecase>(
+      () => _i106.SignUpUsecase(repository: gh<_i917.AuthDomainRepository>()),
+    );
     gh.factory<_i809.AuthCubit>(
-      () => _i809.AuthCubit(signInUsecase: gh<_i602.SignInUsecase>()),
+      () => _i809.AuthCubit(
+        signInUsecase: gh<_i602.SignInUsecase>(),
+        signUpUsecase: gh<_i106.SignUpUsecase>(),
+      ),
     );
     return this;
   }

@@ -2,16 +2,21 @@ import 'dart:developer';
 
 import 'package:fast_food/core/base/base_state.dart';
 import 'package:fast_food/modules/autherization/domain/usecase/sign_in_usecase.dart';
+import 'package:fast_food/modules/autherization/domain/usecase/sign_up_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class AuthCubit extends Cubit<BaseState<bool>> {
   final SignInUsecase _signInUsecase;
+  final SignUpUsecase _signUpUsecase;
 
-  AuthCubit({required SignInUsecase signInUsecase})
-    : _signInUsecase = signInUsecase,
-      super(BaseState.init());
+  AuthCubit({
+    required SignInUsecase signInUsecase,
+    required SignUpUsecase signUpUsecase,
+  }) : _signInUsecase = signInUsecase,
+       _signUpUsecase = signUpUsecase,
+       super(BaseState.init());
 
   Future<void> signIn(String username, String password) async {
     emit(BaseState.loading());
@@ -21,6 +26,26 @@ class AuthCubit extends Cubit<BaseState<bool>> {
       );
       emit(BaseState.success(model: result));
       log(result.toString());
+    } catch (e) {
+      emit(BaseState.error(message: e.toString()));
+    }
+  }
+
+  Future<void> signUp({
+    required String fullName,
+    required String password,
+  }) async {
+    emit(BaseState.loading());
+    try {
+      final response = await _signUpUsecase(
+        SignUpParams(
+          fullName: fullName,
+          password: password,
+          confirmPassword: password,
+          createdAt: DateTime.now(),
+        ),
+      );
+      emit(BaseState.success(model: response));
     } catch (e) {
       emit(BaseState.error(message: e.toString()));
     }

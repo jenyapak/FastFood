@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+  const LoginWidget({super.key, required this.tabController});
+  final TabController tabController;
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
