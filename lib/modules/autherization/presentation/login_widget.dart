@@ -1,3 +1,6 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:fast_food/core/base/base_state.dart';
+import 'package:fast_food/core/config/router.gr.dart';
 import 'package:fast_food/core/constants/app_paddings.dart';
 import 'package:fast_food/core/extensions/int_extension.dart';
 import 'package:fast_food/core/extensions/textstyle_extension.dart';
@@ -64,22 +67,35 @@ class _LoginWidgetState extends State<LoginWidget> {
           SizedBox(
             height: 56,
 
-            child: ElevatedButton(
-              onPressed: () {
-                _authCubit.signIn(
-                  _usernameController.text,
-                  _passwordController.text,
+            child: BlocConsumer<AuthCubit, BaseState<bool>>(
+              listener: (context, state) {
+                if (state.status == StateStatus.success) {
+                  context.router.replaceAll([MainRoute()]);
+                }
+              },
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: () {
+                    if (state.status != StateStatus.loading) {
+                      _authCubit.signIn(
+                        _usernameController.text,
+                        _passwordController.text,
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xffF8774A),
+                  ),
+                  child: state.status == StateStatus.loading
+                      ? Center(child: CircularProgressIndicator())
+                      : Text(
+                          'Login',
+                          style: AppTextStyle.medium
+                              .setSize(17)
+                              .copyWith(color: Color(0xffF6F6F9)),
+                        ),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xffF8774A),
-              ),
-              child: Text(
-                'Login',
-                style: AppTextStyle.medium
-                    .setSize(17)
-                    .copyWith(color: Color(0xffF6F6F9)),
-              ),
             ),
           ),
           AppPaddings.medium.verticalSpace,

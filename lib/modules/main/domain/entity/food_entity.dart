@@ -1,15 +1,18 @@
 class FoodEntity {
+  final int id;
   final String name;
   final List<String> cuisines;
   final double rating;
-  final double price;
+  final int price;
   final int calories;
   final String discription;
   final bool isRescued;
-  final double discount;
+  final int discount;
   final int cookingDuration;
+  final String image;
 
   FoodEntity({
+    required this.id,
     required this.name,
     required this.cuisines,
     required this.rating,
@@ -19,5 +22,6 @@ class FoodEntity {
     required this.isRescued,
     required this.discount,
     required this.cookingDuration,
+    required this.image,
   });
 }
