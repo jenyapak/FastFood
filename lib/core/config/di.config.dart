@@ -25,7 +25,11 @@ import '../../modules/main/data/repository/food_repository.dart' as _i908;
 import '../../modules/main/domain/repository/food_domain_repository.dart'
     as _i873;
 import '../../modules/main/domain/usecase/get_foods_usecase.dart' as _i384;
+import '../../modules/main/domain/usecase/get_restaraunts_usecase.dart'
+    as _i546;
 import '../../modules/main/presentation/cubit/get_food_cubit.dart' as _i1009;
+import '../../modules/main/presentation/cubit/get_restaurants_cubit.dart'
+    as _i280;
 import '../service/supabase_service.dart' as _i246;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -51,8 +55,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i384.GetFoodsUsecase>(
       () => _i384.GetFoodsUsecase(repository: gh<_i873.FoodDomainRepository>()),
     );
+    gh.factory<_i546.GetRestorauntsUsecase>(
+      () => _i546.GetRestorauntsUsecase(
+        repository: gh<_i873.FoodDomainRepository>(),
+      ),
+    );
     gh.factory<_i1009.GetFoodCubit>(
       () => _i1009.GetFoodCubit(getFoodsUsecase: gh<_i384.GetFoodsUsecase>()),
+    );
+    gh.factory<_i280.GetRestaurantsCubit>(
+      () => _i280.GetRestaurantsCubit(
+        getRestorauntsUsecase: gh<_i546.GetRestorauntsUsecase>(),
+      ),
     );
     gh.factory<_i809.AuthCubit>(
       () => _i809.AuthCubit(
