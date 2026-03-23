@@ -11,6 +11,7 @@ import 'package:fast_food/main.dart';
 import 'package:fast_food/modules/autherization/presentation/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key, required this.tabController});
@@ -68,8 +69,11 @@ class _LoginWidgetState extends State<LoginWidget> {
             height: 56,
 
             child: BlocConsumer<AuthCubit, BaseState<bool>>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 if (state.status == StateStatus.success) {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.setBool('is_logged_in', true);
+                  // ignore: use_build_context_synchronously
                   context.router.replaceAll([MainRoute()]);
                 }
               },

@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:fast_food/core/base/base_state.dart';
+import 'package:fast_food/core/config/router.gr.dart';
 import 'package:fast_food/core/constants/app_paddings.dart';
 import 'package:fast_food/core/extensions/int_extension.dart';
 import 'package:fast_food/core/extensions/textstyle_extension.dart';
@@ -88,108 +90,122 @@ class _RestorauntsListWidgetState extends State<RestorauntsListWidget> {
                             padding: AppPaddings.medium.all,
                             itemCount: state.model?.length ?? 0,
                             itemBuilder: (context, index) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
+                              return GestureDetector(
+                                onTap: () {
+                                  context.router.push(
+                                    FoodsRoute(
+                                      restaurantId:
+                                          state.model?[index].id.toString() ??
+                                          '',
                                     ),
-                                    child: SizedBox(
-                                      height: 150,
-                                      width: double.infinity,
-                                      child: Image.network(
-                                        state.model?[index].image ?? '',
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
+                                  );
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ClipRRect(
                                       borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(15),
-                                        bottomRight: Radius.circular(15),
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
                                       ),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withValues(
-                                            alpha: 0.2,
-                                          ),
-                                          blurRadius: 10,
-                                          offset: Offset(0, 5),
+                                      child: SizedBox(
+                                        height: 150,
+                                        width: double.infinity,
+                                        child: Image.network(
+                                          state.model?[index].image ?? '',
+                                          fit: BoxFit.fitWidth,
                                         ),
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsGeometry.symmetric(
-                                        horizontal: AppPaddings.huge.toDouble(),
-                                        vertical: AppPaddings.medium.toDouble(),
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                state.model?[index].name ?? '',
-                                                style: AppTextStyle.bold
-                                                    .setSize(16),
-                                              ),
-                                              Text(
-                                                state
-                                                        .model?[index]
-                                                        .description ??
-                                                    '',
-                                                style: AppTextStyle.regular
-                                                    .setSize(14)
-                                                    .copyWith(
-                                                      color: Colors.grey,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                            padding: AppPaddings.small.all,
-                                            decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(15),
+                                          bottomRight: Radius.circular(15),
+                                        ),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withValues(
+                                              alpha: 0.2,
                                             ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  state.model?[index].rating
-                                                          .toString() ??
-                                                      '',
-                                                  style: AppTextStyle.bold
-                                                      .setSize(16)
-                                                      .copyWith(
-                                                        color: Colors.white,
-                                                      ),
-                                                ),
-                                                AppPaddings
-                                                    .small
-                                                    .horizontalSpace,
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Colors.white,
-                                                  size: 16,
-                                                ),
-                                              ],
-                                            ),
+                                            blurRadius: 10,
+                                            offset: Offset(0, 5),
                                           ),
                                         ],
                                       ),
+                                      child: Padding(
+                                        padding: EdgeInsetsGeometry.symmetric(
+                                          horizontal: AppPaddings.huge
+                                              .toDouble(),
+                                          vertical: AppPaddings.medium
+                                              .toDouble(),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  state.model?[index].name ??
+                                                      '',
+                                                  style: AppTextStyle.bold
+                                                      .setSize(16),
+                                                ),
+                                                Text(
+                                                  state
+                                                          .model?[index]
+                                                          .description ??
+                                                      '',
+                                                  style: AppTextStyle.regular
+                                                      .setSize(14)
+                                                      .copyWith(
+                                                        color: Colors.grey,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              padding: AppPaddings.small.all,
+                                              decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    state.model?[index].rating
+                                                            .toString() ??
+                                                        '',
+                                                    style: AppTextStyle.bold
+                                                        .setSize(16)
+                                                        .copyWith(
+                                                          color: Colors.white,
+                                                        ),
+                                                  ),
+                                                  AppPaddings
+                                                      .small
+                                                      .horizontalSpace,
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Colors.white,
+                                                    size: 16,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             },
                           );

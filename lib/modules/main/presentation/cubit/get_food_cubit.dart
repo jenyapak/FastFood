@@ -12,10 +12,12 @@ class GetFoodCubit extends Cubit<BaseState<List<FoodEntity>>> {
     : _getFoodsUsecase = getFoodsUsecase,
       super(BaseState.init());
 
-  Future<void> getFoods() async {
+  Future<void> getFoods(String restaurantId) async {
     emit(BaseState.loading());
     try {
-      final result = await _getFoodsUsecase.call(GetFoodParams());
+      final result = await _getFoodsUsecase.call(
+        GetFoodParams(restaurantId: restaurantId),
+      );
       emit(BaseState.success(model: result));
     } catch (e) {
       emit(BaseState.error(message: e.toString()));

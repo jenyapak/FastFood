@@ -8,7 +8,7 @@ class FoodModel extends FoodEntity {
     required super.rating,
     required super.price,
     required super.calories,
-    required super.discription,
+    required super.description,
     required super.isRescued,
     required super.discount,
     required super.cookingDuration,
@@ -16,15 +16,16 @@ class FoodModel extends FoodEntity {
   });
   factory FoodModel.fromJson(Map<String, dynamic> json) {
     return FoodModel(
-      id: json['id'] ?? 0,
+      id: json['id'] ?? '',
       name: json['name'] ?? '',
-      cuisines: (json['cuisines'] as Map).entries
-          .map((e) => e.value.toString())
+      cuisines: (json['cuisines'] as List<dynamic>)
+          .map((e) => e.toString())
           .toList(),
+
       rating: json['rating'] ?? 0.0,
       price: json['price'] ?? 0,
       calories: json['calories'] ?? 0,
-      discription: json['discription'] ?? '',
+      description: json['description'] ?? '',
       isRescued: json['isRescued'] ?? false,
       discount: json['discount'] ?? 0,
       cookingDuration: json['cookingDuration'] ?? 0,

@@ -13,7 +13,10 @@ class FoodRepository implements FoodDomainRepository {
   @override
   Future<List<FoodModel>> getFoods(GetFoodParams params) async {
     try {
-      final response = await _client.client.from('foods').select();
+      final response = await _client.client
+          .from('foods')
+          .select()
+          .eq('restaurant_id', params.restaurantId!);
       return response.map((e) => FoodModel.fromJson(e)).toList();
     } catch (e) {
       throw Exception('Error ${e.toString()}');

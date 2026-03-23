@@ -16,8 +16,11 @@ class GetFoodsUsecase extends BaseUsecase<List<FoodEntity>, GetFoodParams> {
 }
 
 class GetFoodParams extends BaseParams {
+  final String? restaurantId;
+
+  GetFoodParams({required this.restaurantId});
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {'restaurant_id': restaurantId};
   }
 }
