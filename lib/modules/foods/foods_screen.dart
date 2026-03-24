@@ -23,7 +23,18 @@ class _FoodsScreenState extends State<FoodsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Menu')),
+      appBar: AppBar(
+        title: const Text(
+          'Menu',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Color(0xffFF4B3A),
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
 
       body: BlocBuilder<GetFoodCubit, BaseState<List<FoodEntity>>>(
         bloc: _getFoodsCubit,

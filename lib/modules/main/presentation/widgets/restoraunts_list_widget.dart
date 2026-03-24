@@ -22,202 +22,195 @@ class _RestorauntsListWidgetState extends State<RestorauntsListWidget> {
   final _getRestaurantsCubit = di<GetRestaurantsCubit>()..getRestaurants();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffFF4B3A),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Padding(
-            padding: AppPaddings.medium.horizontal,
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search for restoraunts',
-                prefixIcon: Icon(Icons.search),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide.none,
-                ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: AppPaddings.medium.horizontal,
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: 'Search for restoraunts',
+              prefixIcon: Icon(Icons.search),
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide.none,
               ),
             ),
           ),
-          AppPaddings.large.verticalSpace,
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: EdgeInsets.only(top: AppPaddings.medium.toDouble()),
-              height: MediaQuery.of(context).size.height * 0.8,
-              decoration: BoxDecoration(
-                color: Color(0xffF2F2F2),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
+        ),
+        AppPaddings.large.verticalSpace,
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            padding: EdgeInsets.only(top: AppPaddings.medium.toDouble()),
+            height: MediaQuery.of(context).size.height * 0.7,
+            decoration: BoxDecoration(
+              color: Color(0xffF2F2F2),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
               ),
-              child: BlocProvider.value(
-                value: _getRestaurantsCubit,
-                child:
-                    BlocBuilder<
-                      GetRestaurantsCubit,
-                      BaseState<List<RestaurantEntity>>
-                    >(
-                      builder: (context, state) {
-                        if (state.status == StateStatus.error) {
-                          return Center(child: Text(state.message ?? 'Error'));
-                        }
-                        if (state.status == StateStatus.loading) {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                        if (state.status == StateStatus.success) {
-                          if (state.model?.isEmpty ?? false) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('List is empty '),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    _getRestaurantsCubit.getRestaurants();
-                                  },
-                                  child: Text('Retry'),
-                                ),
-                              ],
-                            );
-                          }
-                          return ListView.separated(
-                            separatorBuilder: (context, index) =>
-                                AppPaddings.medium.verticalSpace,
-                            padding: AppPaddings.medium.all,
-                            itemCount: state.model?.length ?? 0,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  context.router.push(
-                                    FoodsRoute(
-                                      restaurantId:
-                                          state.model?[index].id.toString() ??
-                                          '',
-                                    ),
-                                  );
+            ),
+            child: BlocProvider.value(
+              value: _getRestaurantsCubit,
+              child:
+                  BlocBuilder<
+                    GetRestaurantsCubit,
+                    BaseState<List<RestaurantEntity>>
+                  >(
+                    builder: (context, state) {
+                      if (state.status == StateStatus.error) {
+                        return Center(child: Text(state.message ?? 'Error'));
+                      }
+                      if (state.status == StateStatus.loading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (state.status == StateStatus.success) {
+                        if (state.model?.isEmpty ?? false) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('List is empty '),
+                              ElevatedButton(
+                                onPressed: () {
+                                  _getRestaurantsCubit.getRestaurants();
                                 },
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                      child: SizedBox(
-                                        height: 150,
-                                        width: double.infinity,
-                                        child: Image.network(
-                                          state.model?[index].image ?? '',
-                                          fit: BoxFit.fitWidth,
-                                        ),
+                                child: Text('Retry'),
+                              ),
+                            ],
+                          );
+                        }
+                        return ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              AppPaddings.medium.verticalSpace,
+                          padding: AppPaddings.medium.all,
+                          itemCount: state.model?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                context.router.push(
+                                  FoodsRoute(
+                                    restaurantId:
+                                        state.model?[index].id.toString() ?? '',
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                    ),
+                                    child: SizedBox(
+                                      height: 150,
+                                      width: double.infinity,
+                                      child: Image.network(
+                                        state.model?[index].image ?? '',
+                                        fit: BoxFit.fitWidth,
                                       ),
                                     ),
-                                    Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(15),
-                                          bottomRight: Radius.circular(15),
-                                        ),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withValues(
-                                              alpha: 0.2,
-                                            ),
-                                            blurRadius: 10,
-                                            offset: Offset(0, 5),
-                                          ),
-                                        ],
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(15),
+                                        bottomRight: Radius.circular(15),
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsetsGeometry.symmetric(
-                                          horizontal: AppPaddings.huge
-                                              .toDouble(),
-                                          vertical: AppPaddings.medium
-                                              .toDouble(),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withValues(
+                                            alpha: 0.2,
+                                          ),
+                                          blurRadius: 10,
+                                          offset: Offset(0, 5),
                                         ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsGeometry.symmetric(
+                                        horizontal: AppPaddings.huge.toDouble(),
+                                        vertical: AppPaddings.medium.toDouble(),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                state.model?[index].name ?? '',
+                                                style: AppTextStyle.bold
+                                                    .setSize(16),
+                                              ),
+                                              Text(
+                                                state
+                                                        .model?[index]
+                                                        .description ??
+                                                    '',
+                                                style: AppTextStyle.regular
+                                                    .setSize(14)
+                                                    .copyWith(
+                                                      color: Colors.grey,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            padding: AppPaddings.small.all,
+                                            decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Text(
-                                                  state.model?[index].name ??
+                                                  state.model?[index].rating
+                                                          .toString() ??
                                                       '',
                                                   style: AppTextStyle.bold
-                                                      .setSize(16),
-                                                ),
-                                                Text(
-                                                  state
-                                                          .model?[index]
-                                                          .description ??
-                                                      '',
-                                                  style: AppTextStyle.regular
-                                                      .setSize(14)
+                                                      .setSize(16)
                                                       .copyWith(
-                                                        color: Colors.grey,
+                                                        color: Colors.white,
                                                       ),
+                                                ),
+                                                AppPaddings
+                                                    .small
+                                                    .horizontalSpace,
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.white,
+                                                  size: 16,
                                                 ),
                                               ],
                                             ),
-                                            Container(
-                                              padding: AppPaddings.small.all,
-                                              decoration: BoxDecoration(
-                                                color: Colors.green,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(
-                                                    state.model?[index].rating
-                                                            .toString() ??
-                                                        '',
-                                                    style: AppTextStyle.bold
-                                                        .setSize(16)
-                                                        .copyWith(
-                                                          color: Colors.white,
-                                                        ),
-                                                  ),
-                                                  AppPaddings
-                                                      .small
-                                                      .horizontalSpace,
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Colors.white,
-                                                    size: 16,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-                        return SizedBox.shrink();
-                      },
-                    ),
-              ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+                      return SizedBox.shrink();
+                    },
+                  ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
