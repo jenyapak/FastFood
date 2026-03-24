@@ -26,6 +26,8 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       backgroundColor: Color(0xffFF4B3A),
       body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+
         controller: _pageController,
         children: [
           SafeArea(child: RestorauntsListWidget()),
